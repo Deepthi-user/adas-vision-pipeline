@@ -89,7 +89,7 @@ make -j$(nproc)
 ./adas_pipeline --camera 0
 ```
 
-## ✨ Key Features for Recruiters
+## ✨ Key Features 
 
 ✅ **Multithreading**: Producer-consumer pattern with thread pools for parallel processing
 ✅ **Video Pipeline**: Efficient frame-by-frame processing with queue management
