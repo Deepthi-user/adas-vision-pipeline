@@ -1,0 +1,72 @@
+project:
+  name: "ADAS Vision Pipeline"
+  version: "1.0.0"
+  description: "Advanced Driver Assistance System Vision Pipeline with MLOps"
+
+models:
+  yolo:
+    name: "YOLOv3"
+    framework: "PyTorch"
+    input_shape: [416, 416, 3]
+    output_format: "bboxes"
+    confidence_threshold: 0.5
+    nms_threshold: 0.45
+    model_url: "https://pjreddie.com/media/files/yolov3.weights"
+    config_url: "https://raw.githubusercontent.com/pjreddie/darknet/master/cfg/yolov3.cfg"
+  
+  lane_detector:
+    name: "Custom Lane Detector"
+    framework: "OpenCV"
+    input_shape: [720, 1280, 3]
+    output_format: "line_segments"
+  
+  sign_detector:
+    name: "Traffic Sign Detector"
+    framework: "PyTorch"
+    input_shape: [32, 32, 3]
+    num_classes: 43
+
+data:
+  input_path: "./data/input"
+  output_path: "./data/output"
+  cache_path: "./data/cache"
+  validation_split: 0.2
+  test_split: 0.1
+
+experiment:
+  tracking:
+    enabled: true
+    backend: "mlflow"  # or "wandb", "tensorboard"
+    log_artifacts: true
+    log_models: true
+    save_frequency: 100
+  
+  metrics:
+    - "fps"
+    - "inference_time"
+    - "detection_accuracy"
+    - "false_positives"
+    - "memory_usage"
+
+deployment:
+  target_platform: "edge"  # "cloud", "edge", "hybrid"
+  quantization: "int8"  # "fp32", "fp16", "int8"
+  optimization: "onnx"  # "pytorch", "onnx", "tflite"
+  
+  docker:
+    base_image: "ubuntu:22.04"
+    registry: "docker.io"
+    namespace: "yourusername"
+
+monitoring:
+  enabled: true
+  metrics_port: 8000
+  log_level: "INFO"
+  enable_profiling: true
+  drift_detection: true
+  drift_threshold: 0.1
+
+versioning:
+  data_versioning: true
+  model_versioning: true
+  code_versioning: true
