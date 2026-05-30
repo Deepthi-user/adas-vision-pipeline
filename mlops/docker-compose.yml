@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  adas-pipeline:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/workspace/data
+      - ./mlops/results:/workspace/mlops/results
+    environment:
+      - LOG_LEVEL=INFO
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./mlops/monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
