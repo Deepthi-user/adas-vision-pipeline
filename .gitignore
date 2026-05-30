@@ -1,0 +1,51 @@
+# Build directories
+build/
+dist/
+*.o
+*.a
+*.so
+*.dylib
+*.dll
+
+# CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+
+# Media files
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.jpg
+*.png
+
+# Model files
+*.pt
+*.onnx
+*.weights
+*.pb
+
+# Data
+data/
+calibration_data/
+*.csv
+
+# Executables
+adas_pipeline
+*.exe
